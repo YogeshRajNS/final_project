@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Prediction</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff7f50, #1f4037);
+            color: rgb(11, 11, 11);
+        }
+
+        .container {
+            background-color: #ffffff;
+            margin: 20px auto;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            max-width: 90%; /* Use a wider portion of the screen */
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #1f4037;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #444;
+        }
+
+        select, input[type="text"], input[type="number"] {
+            padding: 8px;
+            margin-bottom: 20px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        select:focus, input[type="text"]:focus, input[type="number"]:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        select {
+            max-width: 100%; /* Prevents dropdown from exceeding container width */
+            position: relative;
+            z-index: 10; 
+        }
+
+
+
+        button {
+            padding: 12px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .back-home-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .back-button, .home-button {
+            padding: 12px 20px;
+            background-color: #f1f1f1;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .back-button:hover, .home-button:hover {
+            background-color: #ddd;
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 600px) {
+            form {
+                grid-template-columns: 1fr; /* Stack fields vertically on smaller screens */
+            }
+
+            .back-home-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Predict Book Price</h1>
+        <form method="post">
+            {% csrf_token %}
+            
+            <div>
+                <label for="city">City:</label>
+                <input type="text" name="city" required placeholder="Enter city name">
+            </div>
+
+            <div>
+                <label for="country_name">Country:</label>
+                <input type="text" name="country_name" required placeholder="Enter country name">
+            </div>
+
+            <div>
+                <label for="num_pages">Number of Pages:</label>
+                <input type="number" name="num_pages" required>
+            </div>
+
+            <div>
+                <label for="book_age">Book Age:</label>
+                <input type="number" name="book_age" required>
+            </div>
+            <div>
+                <label for="publisher_name">Publisher:</label>
+                <select name="publisher_name" required>
+                    {% for publisher in publishers %}
+                        <option value="{{ publisher }}">{{ publisher }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="language_name">Language:</label>
+                <select name="language_name" required>
+                    {% for language in languages %}
+                        <option value="{{ language }}">{{ language }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit">Predict Price</button>
+        </form>
+
+        {% if predicted_price %}
+            <div class="result">
+                <h2>Predicted Price: ${{ predicted_price }}</h2>
+            </div>
+        {% endif %}
+
+        <div class="back-home-buttons">
+            <button class="back-button" onclick="window.history.back();">Back</button>
+            <button class="home-button" onclick="window.location.href='/';">Home</button>
+        </div>
+    </div>
+</body>
+</html>
