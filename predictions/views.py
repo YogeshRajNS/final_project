@@ -14,7 +14,7 @@ from django.http import HttpResponse
 
 # Load models
 churn_model = load_model(r"model_files/churn_model.h5")
-predict_price_model = load_model(r"model_files\book_price_prediction_model.h5")
+predict_price_model = load_model(r"model_files/book_price_prediction_model.h5")
         
 # Function to predict churn
 def predict_churn(recency, frequency, monetary):
@@ -55,10 +55,10 @@ class PricePredictionView(View):
     def __init__(self):
 
         # Load the saved scaler
-        with open(r"model_files\book_price_scaler.pkl", 'rb') as f:
+        with open(r"model_files/book_price_scaler.pkl", 'rb') as f:
             self.scaler = pickle.load(f)
         # Load pre-fitted label encoders
-        with open(r"model_files\label_encoders.pkl", 'rb') as f:
+        with open(r"model_files/label_encoders.pkl", 'rb') as f:
             encoders = pickle.load(f)
             self.label_encoder_language = encoders['language_name']
             self.label_encoder_publisher = encoders['publisher_name']
@@ -66,7 +66,7 @@ class PricePredictionView(View):
             self.label_encoder_country = encoders['country_name']
 
         # Load dataset once for publishers and languages
-        dataset_path = r'model_files\finalcleaned.csv'
+        dataset_path = r'model_files/finalcleaned.csv'
         df = pd.read_csv(dataset_path,encoding='latin1')
 
         self.publishers = df['publisher_name'].dropna().unique().tolist()
@@ -141,18 +141,18 @@ class PricePredictionView(View):
 class DemandPredictionView(View):
     def __init__(self):
         # Load the pre-trained model and scaler for demand prediction
-        self.demand_model = load_model(r"model_files\demand_model.h5")
+        self.demand_model = load_model(r"model_files/demand_model.h5")
         
         # Load the scaler for demand prediction
-        with open(r"model_files\demand_scaler.pkl", 'rb') as f:
+        with open(r"model_files/demand_scaler.pkl", 'rb') as f:
             self.demand_scaler = pickle.load(f)
         
         # Load label encoders for categorical columns
-        with open(r"model_files\label_encoders.pkl", 'rb') as f:
+        with open(r"model_files/label_encoders.pkl", 'rb') as f:
             self.label_encoders = pickle.load(f)
         
         # Load the dataset to get the unique publishers and languages
-        dataset_path = r"model_files\finalcleaned.csv"
+        dataset_path = r"model_files/finalcleaned.csv"
         self.df = pd.read_csv(dataset_path,encoding='latin1')
 
         # Get the unique publishers and languages from the dataset
