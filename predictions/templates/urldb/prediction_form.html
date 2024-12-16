@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+     
+    <title>Book Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 400px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Price Prediction</h1>
+        <form method="post" action="/predict/">
+            {% csrf_token %}
+            <label for="num_pages">Number of Pages:</label>
+            <input type="number" name="num_pages" required>
+
+            <label for="publication_date">Publication Date:</label>
+            <input type="date" name="publication_date" required>
+
+            <label for="shipping_cost">Shipping Cost:</label>
+            <input type="text" name="shipping_cost" required>
+
+            <label for="method_name">Shipping Method:</label>
+            <input type="text" name="method_name" required>
+
+            <label for="city">City:</label>
+            <input type="text" name="city" required>
+
+            <label for="country_name">Country:</label>
+            <input type="text" name="country_name" required>
+
+            <button type="submit">Predict Price</button>
+        </form>
+        <div class="footer">
+            <p>Powered by Book Prediction App</p>
+        </div>
+        <div class="link-container">
+            <div>
+                <a href="">Back</a>
+            </div>
+        </div>   
+    </div>
+</body>
+</html>
