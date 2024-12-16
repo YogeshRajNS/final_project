@@ -13,7 +13,7 @@ import pickle
 from django.http import HttpResponse
 
 # Load models
-churn_model = load_model(r"model_files\churn_model.h5")
+churn_model = load_model(r"model_files/churn_model.h5")
 predict_price_model = load_model(r"model_files\book_price_prediction_model.h5")
         
 # Function to predict churn
