@@ -1,6 +1,7 @@
 django
-numpy
-scikit-learn
-tensorflow
 pandas
+numpy
+tensorflow
+scikit-learn
 keras
+
